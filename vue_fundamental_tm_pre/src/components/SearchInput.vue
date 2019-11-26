@@ -19,6 +19,7 @@
 <script>
 export default {
   name: "SearchInput",
+  props: ['items'],
   data: () => ({
     search: "",
     selected: "5",
@@ -30,7 +31,12 @@ export default {
       { value: 4, text: "Rejected" },
       { value: 5, text: "Filter" }
     ]
-  })
+  }),
+  watch: {
+    selected: function(newVal) {
+       
+    }
+  }
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 4rem 3.5rem;">
-    <search-input />
+    <search-input :items="items" />
     <task-item v-for="item in items" :key="item.id" :item="item" />
   </div>
 </template>

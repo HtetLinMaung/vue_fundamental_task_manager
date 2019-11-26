@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 4rem 3.5rem;">
-    <search-input :items="items" />
-    <task-item v-for="item in items" :key="item.id" :item="item" />
+    <search-input :items="items" @search-filter="setCollection" />
+    <task-item v-for="item in collections" :key="item.id" :item="item" />
   </div>
 </template>
 
@@ -15,6 +15,14 @@ export default {
   components: {
     "task-item": TaskItem,
     "search-input": SearchInput
+  },
+  data: () => ({
+    collections: items
+  }),
+  methods: {
+    setCollection(search_items) {
+      this.collections = search_items;
+    }
   }
 };
 </script>

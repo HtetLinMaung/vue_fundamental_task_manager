@@ -19,7 +19,7 @@
 <script>
 export default {
   name: "SearchInput",
-  props: ['items'],
+  props: ["items"],
   data: () => ({
     search: "",
     selected: "5",
@@ -34,7 +34,9 @@ export default {
   }),
   watch: {
     selected: function(newVal) {
-       
+      const re = new RegExp(newVal);
+      const search_items = this.items.filter(item => re.match(item.text));
+      this.$emit("search-filter", search_items);
     }
   }
 };

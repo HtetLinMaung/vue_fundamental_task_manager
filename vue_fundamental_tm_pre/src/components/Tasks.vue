@@ -14,13 +14,17 @@
         />
       </div>
     </div>
-    <task-item v-for="item in collections" :key="item.id" :item="item" />
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-      </div>
-    </div>
+    <task-item
+      v-for="item in collections"
+      :key="item.id"
+      :item="item"
+      @click.native="modalFlag = true"
+    />
+    <modal-box v-model="modalFlag">
+      <template v-slot:content>
+        
+      </template>
+    </modal-box>
   </div>
 </template>
 
@@ -28,6 +32,7 @@
 import TaskItem from "../components/TaskItem";
 import SearchInput from "../components/SearchInput";
 import SelectInput from "../components/SelectInput";
+import ModalBox from "../components/ModalBox";
 
 export default {
   name: "Tasks",
@@ -35,7 +40,8 @@ export default {
   components: {
     "task-item": TaskItem,
     "search-input": SearchInput,
-    "select-input": SelectInput
+    "select-input": SelectInput,
+    "modal-box": ModalBox
   },
   data() {
     return {
@@ -56,7 +62,8 @@ export default {
         "Pending",
         "Rejected",
         "Wait for Confirm!"
-      ]
+      ],
+      modalFlag: false
     };
   },
   methods: {
@@ -70,6 +77,9 @@ export default {
           item => item.status == parseInt(selected)
         );
     }
+    // openModal() {
+    //   this.$refs.modal.style.display = "block";
+    // }
   }
 };
 </script>
@@ -81,26 +91,5 @@ export default {
 }
 .search-wrapper {
   margin-left: auto;
-}
-/* for modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
 }
 </style>

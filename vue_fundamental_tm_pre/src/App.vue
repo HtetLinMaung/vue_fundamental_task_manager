@@ -58,4 +58,7 @@ body {
   max-width: 850px;
   margin: auto;
 }
+.d-flex {
+  display: flex;
+}
 </style>

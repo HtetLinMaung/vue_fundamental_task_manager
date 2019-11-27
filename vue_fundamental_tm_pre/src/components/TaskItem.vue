@@ -74,6 +74,8 @@ export default {
 
 <style scoped>
 .task-item {
+  transition-property: transform;
+  transition-duration: 0.3s;
   margin-bottom: 0.75rem;
   display: flex;
   background: #fff;
@@ -82,6 +84,10 @@ export default {
   align-items: center;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.task-item:hover {
+  transform: scaleX(1.05);
 }
 
 .task-item-ns {

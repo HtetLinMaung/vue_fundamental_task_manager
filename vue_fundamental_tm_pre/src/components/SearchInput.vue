@@ -38,5 +38,11 @@ export default {
   color: rgb(117, 105, 105, 0.9);
   border-radius: 15px;
   border: 1px solid rgb(143, 137, 137);
+  transition-property: border;
+  transition-duration: .3s;
+}
+.search:focus {
+  outline: none;
+  border: 1px solid rgb(37, 221, 253);
 }
 </style>

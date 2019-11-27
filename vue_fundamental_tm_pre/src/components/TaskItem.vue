@@ -12,7 +12,14 @@ export default {
   name: "TaskItem",
   props: ["item"],
   data: () => ({
-    status: ["Not Started", "Completed", "In Progress", "Pending", "Rejected"]
+    status: [
+      "Not Started",
+      "Completed",
+      "In Progress",
+      "Pending",
+      "Rejected",
+      "Wait for Confirm!"
+    ]
   }),
   methods: {
     getTaskStyle(status) {
@@ -30,8 +37,11 @@ export default {
         case 3:
           Class += " task-item-pen";
           break;
-        default:
+        case 4:
           Class += " task-item-rej";
+          break;
+        default:
+          Class += " task-item-wai";
       }
       return Class;
     },
@@ -50,8 +60,11 @@ export default {
         case 3:
           Class += " status-pen";
           break;
-        default:
+        case 4:
           Class += " status-rej";
+          break;
+        default:
+          Class += " status-wai";
       }
       return Class;
     }
@@ -91,6 +104,10 @@ export default {
   border-left: 15px solid rgb(251, 76, 76);
 }
 
+.task-item-wai {
+  border-left: 15px solid rgb(207, 187, 4);
+}
+
 .task-name {
   padding-left: 1rem;
   color: rgb(117, 105, 105);
@@ -126,5 +143,9 @@ export default {
 
 .status-rej {
   background-color: rgb(251, 76, 76);
+}
+
+.status-wai {
+  background-color: rgb(207, 187, 4);
 }
 </style>

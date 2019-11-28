@@ -20,10 +20,8 @@
       :item="item"
       @click.native="modalFlag = true"
     />
-    <modal-box v-model="modalFlag">
-      <template v-slot:content>
-        
-      </template>
+    <modal-box v-model="modalFlag" max-width="650">
+      <template v-slot:content> hello </template>
     </modal-box>
   </div>
 </template>

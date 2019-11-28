@@ -1,10 +1,13 @@
 <template>
   <div ref="myModal" v-show="value" class="modal">
-    <div class="modal-content">
-      <div class="d-flex">
-        <div class="close" @click="updateFlag">&times;</div>
-      </div>
+    <div class="modal-content" :style="{ 'max-width': `${maxWidth}px` }">
+      <slot name="title">
+        <div class="d-flex">
+          <div class="close" @click="updateFlag">&times;</div>
+        </div>
+      </slot>
       <slot name="content"></slot>
+      <slot name="action"></slot>
     </div>
   </div>
 </template>
@@ -12,7 +15,7 @@
 <script>
 export default {
   name: "ModalBox",
-  props: ["value"],
+  props: ["value", "maxWidth"],
   data() {
     return {};
   },
@@ -50,7 +53,7 @@ export default {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  border-radius: 4px;
 }
 
 .close {

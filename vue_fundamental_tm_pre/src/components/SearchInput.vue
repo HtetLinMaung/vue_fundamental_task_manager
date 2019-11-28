@@ -4,15 +4,15 @@
 
 <script>
 export default {
-  name: "SearchInput",
-  props: ["items", "searchKeys"],
+  name: 'SearchInput',
+  props: ['items', 'searchKeys'],
   data: () => ({
-    search: ""
+    search: ''
   }),
   watch: {
     search(newVal) {
-      const { items, searchKeys } = this;
-      const re = new RegExp(newVal, "i");
+      const { items, searchKeys } = this
+      const re = new RegExp(newVal, 'i')
 
       const search_items = items.filter(item => {
         for (const [key, value] of Object.entries(item)) {
@@ -20,15 +20,15 @@ export default {
             searchKeys.some(searchKey => key == searchKey) &&
             `${value}`.match(re)
           ) {
-            return true;
+            return true
           }
         }
-      });
+      })
 
-      this.$emit("search-filter", search_items);
+      this.$emit('search-filter', search_items)
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -39,7 +39,7 @@ export default {
   border-radius: 15px;
   border: 1px solid rgb(143, 137, 137);
   transition-property: border;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 .search:focus {
   outline: none;

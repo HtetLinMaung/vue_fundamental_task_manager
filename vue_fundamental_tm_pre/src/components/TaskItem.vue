@@ -74,8 +74,9 @@ export default {
 
 <style scoped>
 .task-item {
-  transition-property: transform;
-  transition-duration: 0.3s;
+  /* transition-property: transform;
+  transition-duration: 0.3s; */
+  transition: transform 0.3s;
   margin-bottom: 0.75rem;
   display: flex;
   background: #fff;

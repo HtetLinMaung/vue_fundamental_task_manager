@@ -39,8 +39,9 @@ export default {
 }
 
 .btn:after {
+  border-radius: 50%;
   content: '';
-  background: #90ee90;
+  background: grey;
   display: block;
   position: absolute;
   padding: 60px;

@@ -1,10 +1,10 @@
 <template>
-  <div ref="myModal" v-show="value" class="modal">
+  <div ref="myModal" v-show="value" class="modal" :style="{ opacity }">
     <div class="modal-content" :style="{ 'max-width': `${maxWidth || 250}px` }">
       <slot name="title">
         <div class="d-flex">
           <div style="font-size: 24px;">Want to code with Htet Lin Maung?</div>
-          <div class="close" @click="updateFlag">&times;</div>
+          <div class="close" @click="closeModal">&times;</div>
         </div>
         <hr />
       </slot>
@@ -17,11 +17,11 @@
       <slot name="action">
         <hr />
         <div class="d-flex">
-          <div>
-            <btn>Cancel</btn>
+          <div style="margin-right: .5rem; margin-left: auto;">
+            <btn small @click.native="closeModal">Cancel</btn>
           </div>
           <div>
-            <btn>Subscribe</btn>
+            <btn small @click.native="closeModal">Subscribe</btn>
           </div>
         </div>
       </slot>
@@ -30,26 +30,42 @@
 </template>
 
 <script>
-import Button from '../components/Button'
+import Button from "../components/Button"
 
 export default {
-  name: 'ModalBox',
-  props: ['value', 'maxWidth'],
+  name: "ModalBox",
+  props: ["value", "maxWidth"],
   components: {
     btn: Button
   },
   data() {
-    return {}
+    return {
+      opacity: 0
+    }
   },
   methods: {
-    updateFlag() {
-      this.$emit('input', false)
+    closeModal() {
+      this.$emit("input", false)
+    }
+  },
+  watch: {
+    value(newVal) {
+      if (newVal) {
+        console.log("do fade in")
+        const fadeIn = setInterval(() => {
+          if (this.opacity == 10) {
+            clearInterval(fadeIn)
+          } else {
+            this.opacity += 0.1
+          }
+        }, 30)
+      }
     }
   },
   mounted() {
     window.onclick = event => {
       if (event.target == this.$refs.myModal) {
-        this.$emit('input', false)
+        this.closeModal()
       }
     }
   }
@@ -75,6 +91,7 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   border-radius: 4px;
+  animation: minimise 500ms linear;
 }
 
 .close {

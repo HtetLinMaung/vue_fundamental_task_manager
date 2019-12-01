@@ -1,5 +1,5 @@
 <template>
-  <div ref="myModal" v-show="value" class="modal" :style="{ opacity }">
+  <div ref="myModal" v-show="active" class="modal" :style="{ opacity }">
     <div class="modal-content" :style="{ 'max-width': `${maxWidth || 250}px` }">
       <slot name="title">
         <div class="d-flex">
@@ -35,30 +35,37 @@ import Button from "../components/Button"
 export default {
   name: "ModalBox",
   props: ["value", "maxWidth"],
+
   components: {
     btn: Button
   },
   data() {
     return {
-      opacity: 0
+      opacity: 0,
+      active: false
     }
   },
   methods: {
     closeModal() {
       this.$emit("input", false)
+    },
+    fadeIn(second) {
+      const fadeIn = setInterval(() => {
+        if (this.opacity == 10) {
+          clearInterval(fadeIn)
+        } else {
+          this.opacity += 0.1
+        }
+      }, second * 100)
     }
   },
   watch: {
     value(newVal) {
       if (newVal) {
-        console.log("do fade in")
-        const fadeIn = setInterval(() => {
-          if (this.opacity == 10) {
-            clearInterval(fadeIn)
-          } else {
-            this.opacity += 0.1
-          }
-        }, 30)
+        this.active = newVal // display first
+        this.fadeIn(0.5)
+      } else {
+        this.active = newVal
       }
     }
   },

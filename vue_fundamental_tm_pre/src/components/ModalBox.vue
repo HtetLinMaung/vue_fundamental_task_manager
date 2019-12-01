@@ -1,9 +1,18 @@
 <template>
   <div ref="myModal" v-show="active" class="modal" :style="{ opacity }">
-    <div class="modal-content" :style="{ 'max-width': `${maxWidth || 250}px` }">
+    <div
+      ref="modalContent"
+      class="modal-content"
+      :style="{
+        'max-width': `${maxWidth || 250}px`,
+        transform: `scale(${size})`
+      }"
+    >
       <slot name="title">
         <div class="d-flex">
-          <div style="font-size: 24px;">Want to code with Htet Lin Maung?</div>
+          <div style="font-size: 24px;">
+            Want to code with Htet Lin Maung?
+          </div>
           <div class="close" @click="closeModal">&times;</div>
         </div>
         <hr />
@@ -42,7 +51,8 @@ export default {
   data() {
     return {
       opacity: 0,
-      active: false
+      active: false,
+      size: 0
     }
   },
   methods: {
@@ -51,21 +61,33 @@ export default {
     },
     fadeIn(second) {
       const fadeIn = setInterval(() => {
-        if (this.opacity == 10) {
+        if (this.opacity >= 0.9) {
           clearInterval(fadeIn)
         } else {
-          this.opacity += 0.1
+          this.opacity += 0.1 * 2
+          this.size += 0.1 * 2
         }
-      }, second * 100)
+      }, second * 100 * 2)
+    },
+    fadeOut(second) {
+      const fadeOut = setInterval(() => {
+        if (this.opacity <= 0.1) {
+          clearInterval(fadeOut)
+          this.active = false
+        } else {
+          this.opacity -= 0.1 * 2
+          this.size -= 0.1 * 2
+        }
+      }, second * 100 * 2)
     }
   },
   watch: {
     value(newVal) {
       if (newVal) {
         this.active = newVal // display first
-        this.fadeIn(0.5)
+        this.fadeIn(0.2)
       } else {
-        this.active = newVal
+        this.fadeOut(0.2)
       }
     }
   },
@@ -98,7 +120,7 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   border-radius: 4px;
-  animation: minimise 500ms linear;
+  overflow: auto;
 }
 
 .close {

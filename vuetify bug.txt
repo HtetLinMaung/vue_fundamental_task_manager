@@ -1,2 +1,0 @@
-vuetify/lib not found error 
-npm cache clean --force 

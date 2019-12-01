@@ -1,41 +1,43 @@
 <template>
-  <div ref="myModal" v-show="active" class="modal" :style="{ opacity }">
-    <div
-      ref="modalContent"
-      class="modal-content"
-      :style="{
-        'max-width': `${maxWidth || 250}px`,
-        transform: `scale(${size})`
-      }"
-    >
-      <slot name="title">
-        <div class="d-flex">
-          <div style="font-size: 24px;">
-            Want to code with Htet Lin Maung?
+  <transition name="fade">
+    <div ref="myModal" v-show="value" class="modal" :style="{ opacity }">
+      <div
+        ref="modalContent"
+        class="modal-content"
+        :style="{
+          'max-width': `${maxWidth || 250}px`,
+          transform: `scale(${size})`
+        }"
+      >
+        <slot name="title">
+          <div class="d-flex">
+            <div style="font-size: 24px;">
+              Want to code with Htet Lin Maung?
+            </div>
+            <div class="close" @click="closeModal">&times;</div>
           </div>
-          <div class="close" @click="closeModal">&times;</div>
-        </div>
-        <hr />
-      </slot>
-      <slot name="content">
-        <div>
-          Let Htet Lin Maung help upgrade your coding skills. If you want to
-          join please click subscribe button below.
-        </div>
-      </slot>
-      <slot name="action">
-        <hr />
-        <div class="d-flex">
-          <div style="margin-right: .5rem; margin-left: auto;">
-            <btn small @click.native="closeModal">Cancel</btn>
-          </div>
+          <hr />
+        </slot>
+        <slot name="content">
           <div>
-            <btn small @click.native="closeModal">Subscribe</btn>
+            Let Htet Lin Maung help upgrade your coding skills. If you want to
+            join please click subscribe button below.
           </div>
-        </div>
-      </slot>
+        </slot>
+        <slot name="action">
+          <hr />
+          <div class="d-flex">
+            <div style="margin-right: .5rem; margin-left: auto;">
+              <btn small @click.native="closeModal">Cancel</btn>
+            </div>
+            <div>
+              <btn small @click.native="closeModal">Subscribe</btn>
+            </div>
+          </div>
+        </slot>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -50,9 +52,9 @@ export default {
   },
   data() {
     return {
-      opacity: 0,
+      opacity: 1,
       active: false,
-      size: 0
+      size: 1
     }
   },
   methods: {
@@ -64,10 +66,10 @@ export default {
         if (this.opacity >= 0.9) {
           clearInterval(fadeIn)
         } else {
-          this.opacity += 0.1 * 2
-          this.size += 0.1 * 2
+          this.opacity += 0.1
+          this.size += 0.1
         }
-      }, second * 100 * 2)
+      }, second * 100)
     },
     fadeOut(second) {
       const fadeOut = setInterval(() => {
@@ -75,22 +77,22 @@ export default {
           clearInterval(fadeOut)
           this.active = false
         } else {
-          this.opacity -= 0.1 * 2
-          this.size -= 0.1 * 2
+          this.opacity -= 0.1
+          this.size -= 0.1
         }
-      }, second * 100 * 2)
+      }, second * 100)
     }
   },
-  watch: {
-    value(newVal) {
-      if (newVal) {
-        this.active = newVal // display first
-        this.fadeIn(0.2)
-      } else {
-        this.fadeOut(0.2)
-      }
-    }
-  },
+  // watch: {
+  //   value(newVal) {
+  //     if (newVal) {
+  //       this.active = newVal // display first
+  //       this.fadeIn(0.2)
+  //     } else {
+  //       this.fadeOut(0.2)
+  //     }
+  //   }
+  // },
   mounted() {
     window.onclick = event => {
       if (event.target == this.$refs.myModal) {
@@ -102,6 +104,13 @@ export default {
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .modal {
   display: flex;
   position: fixed;

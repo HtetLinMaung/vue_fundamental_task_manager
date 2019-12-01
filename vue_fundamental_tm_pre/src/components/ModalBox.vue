@@ -93,6 +93,6 @@ export default {
 
 .d-flex {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 </style>

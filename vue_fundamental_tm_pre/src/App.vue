@@ -1,16 +1,18 @@
 <template>
-  <div id="app">
+  <Container max-width="850">
     <Tasks :items="tasks" />
-  </div>
+  </Container>
 </template>
 
 <script>
-import Tasks from "./components/Tasks";
+import Tasks from "./components/Tasks"
+import Container from "./components/Container"
 
 export default {
   name: "app",
   components: {
-    Tasks
+    Tasks,
+    Container
   },
   data: () => ({
     tasks: [
@@ -46,16 +48,12 @@ export default {
       }
     ]
   })
-};
+}
 </script>
 
 <style>
 body {
   font-family: "Solway", serif;
   background-color: rgb(243, 240, 240);
-}
-#app {
-  max-width: 850px;
-  margin: auto;
 }
 </style>
